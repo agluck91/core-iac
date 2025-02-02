@@ -1,8 +1,0 @@
-config:
-  proxmox:PASSWORD:
-    secure: AAABAMH/C5v4cbZ0slM0NnhQ7FXTSdde0sMuvUjCfU9LDw0azqH9Vl4LWckN15c/LUc=
-  proxmox:PROXMOX_VE_ENDPOINT: https://10.10.1.80:8006
-  proxmox:PROXMOX_VE_INSECURE: "true"
-  proxmox:PROXMOX_VE_PASSWORD:
-    secure: AAABAOS2McySRwzStpqiICKdNhj9hvV8BdgG6zVHzGTIp3jD4PFsgAu7q/qN0yoMLfM=
-  proxmox:PROXMOX_VE_USERNAME: root@pam
