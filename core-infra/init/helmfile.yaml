@@ -1,0 +1,42 @@
+repositories:
+  - name: longhorn
+    url: https://charts.longhorn.io
+  - name: metallb
+    url: https://metallb.github.io/metallb
+  - name: traefik
+    url: https://traefik.github.io/charts
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
+---
+releases:
+  # Distributed storage
+  - name: longhorn
+    namespace: longhorn-system
+    chart: longhorn/longhorn
+    version: 1.8.0
+    values:
+      - ./values/longhorn.values.yaml
+
+  # Load balancer
+  - name: metallb
+    chart: metallb/metallb
+    namespace: metallb-system
+    version: 0.14.9
+
+  #Traefik Ingress
+  - name: traefik
+    namespace: kube-system
+    chart: traefik/traefik
+    version: 34.3.0
+    values:
+      - ./values/traefik.values.yaml
+
+  # Cert-Manager
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.17.0
+    values:
+      - ./values/cert-manager.values.yaml

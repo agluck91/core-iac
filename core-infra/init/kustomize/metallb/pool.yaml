@@ -1,0 +1,39 @@
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: default-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 10.10.2.150-10.10.2.250
+
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: dmz-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 10.10.3.10-10.10.3.15
+  autoAssign: false
+
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: default-pool-l2
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - default-pool
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: dmz-pool-l2
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - dmz-pool

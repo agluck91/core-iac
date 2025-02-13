@@ -1,0 +1,31 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: glucktek
+  namespace: default
+spec:
+  secretName: glucktek-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: "*.glucktek.com"
+  dnsNames:
+    - glucktek.com
+    - "*.glucktek.com"
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gluckhub
+  namespace: default
+spec:
+  secretName: gluckhub-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: "*.gluckhub.com"
+  dnsNames:
+    - gluckhub.com
+    - "*.gluckhub.com"

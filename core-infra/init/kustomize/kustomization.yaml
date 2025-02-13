@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app.kubernetes.io/managed-by: Kustomize
+resources:
+  - ./metallb/pool.yaml
+  - ./cert-manager/issuer.yaml
+  - ./cert-manager/cert.yaml
+  - ./traefik/ingress.yaml
+  - ./testing/ingress.yaml
+  - ./testing/service.yaml
+  - ./testing/deployment.yaml
