@@ -28,7 +28,7 @@ spec:
             - run
             - --token
             - $(token)
-            - --loglevel
+            - -loglevel
             - debug
           envFrom:
             - secretRef:
