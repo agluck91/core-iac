@@ -6,7 +6,7 @@ metadata:
   name: cf-tunnel
   namespace: default
 spec:
-  replicas: 3 # you might want to adjust the replicas to your own needs
+  replicas: 1 # you might want to adjust the replicas to your own needs
   selector:
     matchLabels:
       tunnel: cf-tunnel
@@ -20,28 +20,29 @@ spec:
         tunnel: cf-tunnel
     spec:
       containers:
-        image: cloudflare/cloudflared:latest # you might want to pin this to a version
-        command: ["/bin/sh"]
-        args:
-          [
-            "-c",
-            'echo "Token: $CF_TUNNEL_TOKEN"; tunnel --no-autoupdate run --token "$CF_TUNNEL_TOKEN"',
-          ]
-        env:
-          - name: CF_TUNNEL_TOKEN
-            valueFrom:
-              secretKeyRef:
+        - args:
+          args:
+            - /bin/sh
+            - -c
+            - |
+              echo "Token: $token"
+              tunnel --no-autoupdate run --token "$token"
+          envFrom:
+            - secretRef:
                 name: cf-tunnel
-                key: token
-        imagePullPolicy: Always
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /ready
-            port: 8081
-          initialDelaySeconds: 10
-          periodSeconds: 10
-        name: tunnel
-        ports:
-          - containerPort: 8081
-            name: http-metrics
+          env:
+            - name: TZ
+              value: UTC
+          image: cloudflare/cloudflared:latest # you might want to pin this to a version
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ready
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          name: tunnel
+          ports:
+            - containerPort: 8081
+              name: http-metrics
