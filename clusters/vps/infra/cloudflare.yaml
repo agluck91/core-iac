@@ -20,8 +20,7 @@ spec:
         tunnel: cf-tunnel
     spec:
       containers:
-        command:
-          - echo
+        command: ["echo"]
         args:
           - "The token is: $token"
         envFrom:
