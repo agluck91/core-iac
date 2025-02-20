@@ -23,7 +23,7 @@ spec:
         - command:
             - /bin/sh
             - -c
-            - echo "Token: $token"
+            - 'echo "Token: $token"'
           envFrom:
             - secretRef:
                 name: cf-tunnel
