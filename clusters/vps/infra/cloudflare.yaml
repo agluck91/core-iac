@@ -6,7 +6,7 @@ metadata:
   name: cf-tunnel
   namespace: default
 spec:
-  replicas: 4 # you might want to adjust the replicas to your own needs
+  replicas: 2 # you might want to adjust the replicas to your own needs
   selector:
     matchLabels:
       tunnel: cf-tunnel
