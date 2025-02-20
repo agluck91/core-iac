@@ -28,6 +28,8 @@ spec:
             - run
             - --token
             - $(token)
+            - --loglevel
+            - debug
           envFrom:
             - secretRef:
                 name: cf-tunnel
