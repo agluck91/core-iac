@@ -25,7 +25,6 @@ spec:
             - -c
             - |
               echo "Token: $token"
-              tunnel --no-autoupdate run --token "$token"
           envFrom:
             - secretRef:
                 name: cf-tunnel
