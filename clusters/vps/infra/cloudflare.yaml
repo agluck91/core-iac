@@ -26,9 +26,6 @@ spec:
             - run
             - --token
             - "$(CF_TUNNEL_TOKEN)"
-          envFrom:
-            - secretRef:
-                name: cf-tunnel
           env:
             - name: CF_TUNNEL_TOKEN
               valueFrom:
