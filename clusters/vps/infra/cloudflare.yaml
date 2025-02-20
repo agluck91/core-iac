@@ -21,7 +21,6 @@ spec:
     spec:
       containers:
         - args:
-          args:
             - /bin/sh
             - -c
             - |
