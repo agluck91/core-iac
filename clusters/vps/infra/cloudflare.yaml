@@ -20,7 +20,7 @@ spec:
         tunnel: cf-tunnel
     spec:
       containers:
-        - args:
+        - command:
             - /bin/sh
             - -c
             - |
