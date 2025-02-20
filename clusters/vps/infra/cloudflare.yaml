@@ -20,26 +20,26 @@ spec:
         tunnel: cf-tunnel
     spec:
       containers:
-        - command:
-            - /bin/sh
-            - -c
-            - 'echo "Token: $token"'
-          envFrom:
-            - secretRef:
-                name: cf-tunnel
-          env:
-            - name: TZ
-              value: UTC
-          image: cloudflare/cloudflared:latest # you might want to pin this to a version
-          imagePullPolicy: Always
-          livenessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /ready
-              port: 8081
-            initialDelaySeconds: 10
-            periodSeconds: 10
-          name: tunnel
-          ports:
-            - containerPort: 8081
-              name: http-metrics
+        command:
+          - echo
+        args:
+          - "The token is: $token"
+        envFrom:
+          - secretRef:
+              name: cf-tunnel
+        env:
+          - name: TZ
+            value: UTC
+        image: cloudflare/cloudflared:latest # you might want to pin this to a version
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ready
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        name: tunnel
+        ports:
+          - containerPort: 8081
+            name: http-metrics
