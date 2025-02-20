@@ -20,30 +20,28 @@ spec:
         tunnel: cf-tunnel
     spec:
       containers:
-        - args:
-            - tunnel
-            - --no-autoupdate
-            - --metrics
-            - 0.0.0.0:8081
-            - run
-            - --token
-            - $(token)
-          envFrom:
-            - secretRef:
+        image: cloudflare/cloudflared:latest # you might want to pin this to a version
+        command: ["/bin/sh"]
+        args:
+          [
+            "-c",
+            'echo "Token: $CF_TUNNEL_TOKEN"; tunnel --no-autoupdate run --token "$CF_TUNNEL_TOKEN"',
+          ]
+        env:
+          - name: CF_TUNNEL_TOKEN
+            valueFrom:
+              secretKeyRef:
                 name: cf-tunnel
-          env:
-            - name: TZ
-              value: UTC
-          image: cloudflare/cloudflared:latest # you might want to pin this to a version
-          imagePullPolicy: Always
-          livenessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /ready
-              port: 8081
-            initialDelaySeconds: 10
-            periodSeconds: 10
-          name: tunnel
-          ports:
-            - containerPort: 8081
-              name: http-metrics
+                key: token
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ready
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        name: tunnel
+        ports:
+          - containerPort: 8081
+            name: http-metrics
