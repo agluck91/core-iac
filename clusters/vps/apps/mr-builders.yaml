@@ -1,0 +1,31 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: mr-builers-web
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  secretRef:
+    name: fluxcd-glucktek
+  url: https://github.com/Glucktek/MRBuilders-web
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: mr-builders-web
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./deploy
+  prune: true
+  retryInterval: 2m0s
+  sourceRef:
+    kind: GitRepository
+    name: mr-builders-web
+  targetNamespace: default
+  timeout: 3m0s
+  wait: true
