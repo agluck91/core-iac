@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: health-check-io-1
+  namespace: default
 spec:
   schedule: "*/10 * * * *"
   successfulJobsHistoryLimit: 1 # Only keep 1 successful job
