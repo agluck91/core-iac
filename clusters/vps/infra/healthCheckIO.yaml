@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: health-check-io-1
+spec:
+  schedule: "*/10 * * * *"
+  successfulJobsHistoryLimit: 1 # Only keep 1 successful job
+  failedJobsHistoryLimit: 1 # Only keep 1 failed job
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: healthcheck
+              image: jonlabelle/network-tools
+              imagePullPolicy: IfNotPresent
+              command:
+                [
+                  "sh",
+                  "-c",
+                  "exec curl -fsS https://hc-ping.com/0f73859f-0db6-4c1e-bbe1-a68e455fb8ec",
+                ]
+          restartPolicy: Never
